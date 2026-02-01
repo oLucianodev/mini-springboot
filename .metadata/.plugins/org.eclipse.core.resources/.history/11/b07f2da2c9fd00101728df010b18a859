@@ -1,0 +1,5 @@
+package io.isiflix.isispring.util;
+
+public class IsiLogger {
+
+}

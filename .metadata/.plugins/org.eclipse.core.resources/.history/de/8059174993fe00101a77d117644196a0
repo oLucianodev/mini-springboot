@@ -1,0 +1,5 @@
+package io.isiflix.isispring.annotations;
+
+public class IsiPostMethod {
+
+}

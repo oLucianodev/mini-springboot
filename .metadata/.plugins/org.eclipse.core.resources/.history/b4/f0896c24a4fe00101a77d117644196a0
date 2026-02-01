@@ -1,0 +1,38 @@
+package io.isiflix.isispring.explorer;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClassExplorer {
+
+	public static List<String> packageExplorer(String packageName) {
+	    ArrayList<String> classNames = new ArrayList<>();
+	    try {
+	        String path = packageName.replace(".", "/");
+	        InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
+
+	        if (stream == null) return classNames;
+
+	        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+	        String linha;
+
+	        while ((linha = br.readLine()) != null) {
+	            if (linha.endsWith(".class")) {
+	                String className = linha.substring(0, linha.length() - 6); // remove ".class"
+	                classNames.add(packageName + "." + className);
+	                System.out.println("Encontrei uma class= " + className);
+	            } else {
+	                classNames.addAll(packageExplorer(packageName + "." + linha));
+	            }
+	        }
+	        return classNames;
+
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	        return classNames;
+	    }
+	}

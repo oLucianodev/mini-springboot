@@ -1,0 +1,9 @@
+package br.com.isiflix.webtestapp.controller;
+
+
+@IsiController
+public class HelloController {
+	
+	
+
+}

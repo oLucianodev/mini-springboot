@@ -1,0 +1,106 @@
+package io.isiflix.isispring.web;
+
+import java.io.File;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.List;
+
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.catalina.startup.Tomcat;
+
+import io.isiflix.isispring.annotations.IsiPostMethod;
+import io.isiflix.isispring.datastructures.ControllerMaps;
+import io.isiflix.isispring.datastructures.RequestControllerData;
+import io.isiflix.isispring.annotations.IsiGetMethod;
+import io.isiflix.isispring.explorer.ClassExplorer;
+import io.isiflix.isispring.util.IsiLogger;
+
+public class IsiSpringWebApplication {
+	
+	public static void run(Class<?> sourceClass) {
+		
+		
+		
+		
+		java.util.logging.Logger.getLogger("org.apache").setLevel(java.util.logging.Level.OFF);
+		long ini, fim;
+		IsiLogger.showBanner();
+		try {
+			ini = System.currentTimeMillis();
+			IsiLogger.log("Embeded", "Starting IsiWenApplication");
+			
+			estractMetaData(sourceClass);
+			
+				
+			Tomcat tomcat = new Tomcat();
+			Connector connector =  new Connector();
+			connector.setPort(8080);
+			IsiLogger.log("Embeded Web Container", "web Contairner started on port 8080");
+			tomcat.setConnector(connector);
+			
+			Context ctx = tomcat.addContext("", new File(".").getAbsolutePath());
+			Tomcat.addServlet(ctx, "IsiDispatchServlet", new IsiDispatchServlet());
+			ctx.addServletMappingDecoded("/*", "IsiDispatchServlet");
+			
+			tomcat.start();
+			fim = System.currentTimeMillis();
+			IsiLogger.log("Embeded web Contairner", "IsiSpring Web Application starten in"+ ((double)(fim - ini) / 100)+ " secunds ");
+			tomcat.getServer().await();
+			
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+	
+	private static void extractMetaData(Class<?> sourceClass) throws Exception {
+		
+		List<String> allClasses = ClassExplorer.retrieveAllClasses(sourceClass);
+		
+		for(String isiClass: allClasses) {
+			Annotation annotations[] = Class.forName(isiClass).getAnnotations();
+			for(Annotation classAnnotation: annotations) {
+				if(classAnnotation.annotationType().getName()
+					.equals("io.isiflix.isispring.annotations.IsiController")){
+					IsiLogger.log("Metadata Explorer","Found a Controller" + isiClass);
+					extractMethod(isiClass);
+					}
+				else if (classAnnotation.annotationType().getName().equals("io.isiflix.isispring.annotations.IsiService"));
+				IsiLogger.log("MetaData Explorer", "Found a Service Implemetion"+ isiClass);
+			}
+		  }
+		for (RequestControllerData item: ControllerMaps.values.values()) {
+			IsiLogger.log("", "   "+ item.httpMethod+":" + item.url + "[" + item.controllerClass+"."+item.controllerMethod+"]");
+			
+		}
+		}
+	
+	private static void extractMethod(String className) throws Exception{
+		String httpMethod="";
+		String path="";
+		for (Method method: Class.forName(className).getDeclaredMethods()) {
+			for(Annotation annotation: method.getAnnotations()) {
+				if(annotation.annotationType().getName().equals("io.isiflix.isispring.annotations.IsiGetMethod")) {
+		            path = ((IsiGetMethod)annotation).value();
+					//IsiLogger.log("", " + method: " + method.getName()+" - URL GET =" + path);
+					httpMethod = "POST";
+					RequestControllerData getData = new RequestControllerData("GET", path, className, method.getName());
+					ControllerMaps.values.put("GET" +path, getData);
+					
+				}
+				else if (annotation.annotationType().getName().equals("io.isiflix.isispring.annotations.IsiPostMethod")) {
+				   path = ((IsiPostMethod)annotation).value();
+				  // IsiLogger.log("", "+ method:" + method.getName()+"- URL POST =" + path);
+					httpMethod = "POST";
+				}
+				RequestControllerData getData = new RequestControllerData(httpMethod, path, className, method.getName());
+				ControllerMaps.values.put(httpMethod + path, getData);
+				
+			}
+		}
+		
+	}
+
+}

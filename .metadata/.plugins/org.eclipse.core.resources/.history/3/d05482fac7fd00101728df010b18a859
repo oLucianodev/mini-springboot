@@ -1,0 +1,31 @@
+package io.isiflix.isispring.web;
+
+import java.io.File;
+
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.catalina.startup.Tomcat;
+
+public class IsiSpringWebApplication {
+	
+	public static void run() {
+		try {
+			Tomcat tomcat = new Tomcat();
+			Connector connector =  new Connector();
+			connector.setPort(8080);
+			tomcat.setConnector(connector);
+			
+			Context ctx = tomcat.addContext("", new File(".").getAbsolutePath());
+			tomcat.addServlet(ctx, "isiDispatchServelet", new IsiDispatchServlet());
+			ctx.addServletMappingDecoded("/*", "IsiDispatchServelet");
+			
+			tomcat.start();
+			tomcat.getServer().await();
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+
+}

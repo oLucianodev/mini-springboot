@@ -1,0 +1,16 @@
+package br.com.isiflix.webtestapp.controller;
+
+import io.isiflix.isispring.annotations.IsiController;
+import io.isiflix.isispring.annotations.isiGetMethod;
+
+@IsiController
+public class HelloController {
+	
+	@isiGetMethod("/hello")
+	public String sayHelloWord() {
+		return "Hello Word";
+	}
+	
+	
+
+}

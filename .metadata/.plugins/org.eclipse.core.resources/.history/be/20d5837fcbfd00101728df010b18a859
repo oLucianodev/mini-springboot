@@ -1,0 +1,20 @@
+package io.isiflix.isispring.util;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class IsiLogger {
+	
+	public static final String GREEN = "\u001B[32m";
+	public static final String YELLOW = "\u001B[33m\"";
+	public static final String WHITE = "\u001B[37m\"";
+	public static final String RESET = "\u001B[0m\"";
+	
+	public static DateTimeFormatter ISIDATE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	
+	public static void log(String modulo, String mensagem) {
+		String date = LocalDateTime.now().format(ISIDATE);
+		System.out.printf(GREEN + "%15s " + YELLOW + "%-30s: "+ WHITE +"%s\n"+ RESET,date,modulo,mensagem);
+	}
+
+}

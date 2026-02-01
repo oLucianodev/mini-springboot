@@ -1,0 +1,7 @@
+INDEX VERSION 1.134+C:\Users\junin\OneDrive\Área de Trabalho\Dev\estudos\Pojeto-isiSpringJAVA\.metadata\.plugins\org.eclipse.jdt.core
+3308065119.index
+2732719344.index
+4246536119.index
+1865797976.index
+2672493651.index
+1450120128.index

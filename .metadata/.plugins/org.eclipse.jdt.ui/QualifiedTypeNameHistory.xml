@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.security.DomainCombiner"/>
+    <fullyQualifiedTypeName name="org.apache.catalina.connector.Connector"/>
+    <fullyQualifiedTypeName name="org.apache.catalina.startup.Tomcat"/>
+    <fullyQualifiedTypeName name="org.apache.catalina.Context"/>
+    <fullyQualifiedTypeName name="java.io.PrintWriter"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="java.util.logging.Logger"/>
+    <fullyQualifiedTypeName name="java.util.logging.Level"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.explorer.ClassExplorer"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.web.IsiSpringWebApplication"/>
+    <fullyQualifiedTypeName name="br.com.isiflix.webtestapp.MyWebTestAplication"/>
+    <fullyQualifiedTypeName name="com.sun.tools.javac.code.Attribute.RetentionPolicy"/>
+    <fullyQualifiedTypeName name="java.lang.annotation.ElementType"/>
+    <fullyQualifiedTypeName name="java.lang.annotation.RetentionPolicy"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Method"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.datastructures.ControllerMaps"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.datastructures.ControllersInstances"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.annotations.IsiInjected"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.datastructures.ServiceImplementionData"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Field"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.datastructures.DependencyInjectionMap"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.datastructures.ServiceImplementationMap"/>
+    <fullyQualifiedTypeName name="io.isiflix.isispring.util.IsiLogger"/>
+</qualifiedTypeNameHistroy>
